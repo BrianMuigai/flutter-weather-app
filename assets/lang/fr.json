@@ -1,0 +1,18 @@
+{
+  "appName": "Application Météo",
+  "somethingWentWrong": "Une erreur s'est produite",
+  "serverFailed": "Échec du serveur",
+  "failedToConnectToNetwork": "Impossible de se connecter au réseau",
+  "cacheFailure": "Échec du cache",
+  "noData": "Pas de données !",
+  "error": "Erreur",
+  "unableToAddToFavs": "Impossible d'ajouter aux favoris",
+  "notYetImplemented": "En construction... veuillez réessayer plus tard",
+  "english": "Anglais",
+  "french": "Français",
+  "spanish": "Espagnol",
+  "settings": "Paramètres",
+  "min": "Min",
+  "max": "Max",
+  "current": "Actuel"
+}

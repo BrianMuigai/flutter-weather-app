@@ -1,0 +1,18 @@
+{
+  "appName": "Weather App",
+  "somethingWentWrong": "Something went wrong",
+  "serverFailed": "Server Failed",
+  "failedToConnectToNetwork": "Failed to connect to the network",
+  "cacheFailure": "Cache Failure",
+  "noData": "No Data!",
+  "error": "Error",
+  "unableToAddToFavs": "Unable to add to favs",
+  "notYetImplemented": "Under construction... please try again later",
+  "english": "English",
+  "french": "French",
+  "spanish": "Spanish",
+  "settings": "Settings",
+  "min": "Min",
+  "max": "Max",
+  "current": "Current"
+}

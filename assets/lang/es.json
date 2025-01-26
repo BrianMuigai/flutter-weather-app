@@ -1,0 +1,18 @@
+{
+  "appName": "Aplicación del Clima",
+  "somethingWentWrong": "Algo salió mal",
+  "serverFailed": "Error del servidor",
+  "failedToConnectToNetwork": "No se pudo conectar a la red",
+  "cacheFailure": "Error de caché",
+  "noData": "¡Sin datos!",
+  "error": "Error",
+  "unableToAddToFavs": "No se pudo añadir a favoritos",
+  "notYetImplemented": "En construcción... por favor, inténtelo más tarde",
+  "english": "Inglés",
+  "french": "Francés",
+  "spanish": "Español",
+  "settings": "Configuración",
+  "min": "Mín",
+  "max": "Máx",
+  "current": "Actual"
+}
