@@ -15,14 +15,16 @@ class ForecastPage extends StatefulWidget {
 
 class _ForecastPageState extends State<ForecastPage> {
   final _cityController = TextEditingController(text: 'nairobi');
+  late ForecastBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    context
-        .read<ForecastBloc>()
-        .add(FetchCurrentWeather(city: _cityController.text));
-    context.read<ForecastBloc>().add(FetchWeather(city: _cityController.text));
+    _bloc = context.read<ForecastBloc>();
+    if (_bloc.state is ForecastInitial) {
+      _bloc.add(FetchCurrentWeather(city: _cityController.text));
+      _bloc.add(FetchWeather(city: _cityController.text));
+    }
   }
 
   @override

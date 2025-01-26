@@ -6,6 +6,7 @@ class SharedPreferencesManager {
   final SharedPreferences _sharedPreferences;
 
   static String language = 'language';
+  static String uom = "units of measurement";
 
   SharedPreferencesManager(this._sharedPreferences);
 

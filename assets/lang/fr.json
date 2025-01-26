@@ -14,5 +14,10 @@
   "settings": "Paramètres",
   "min": "Min",
   "max": "Max",
-  "current": "Actuel"
+  "current": "Actuel",
+  "app_language": "Langue de l'application",
+  "uom": "Unités de mesure",
+  "standard": "Standard",
+  "metric": "Métrique",
+  "imperial": "Impérial"
 }

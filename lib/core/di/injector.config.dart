@@ -25,6 +25,7 @@ import '../../features/forecast/domain/usecases/get_current_weather_usecase.dart
 import '../../features/forecast/domain/usecases/get_forecast_usecase.dart'
     as _i456;
 import '../../features/forecast/presentation/bloc/forecast_bloc.dart' as _i932;
+import '../../features/settings/presentation/bloc/settings_bloc.dart' as _i585;
 import '../api_client/client/dio_client.dart' as _i758;
 import '../api_client/client_provider.dart' as _i546;
 import '../storage/shared_preferences_manager.dart' as _i203;
@@ -56,6 +57,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i203.SharedPreferencesManager>(
         () => _i203.SharedPreferencesManager(gh<_i460.SharedPreferences>()));
+    gh.factory<_i585.SettingsBloc>(
+        () => _i585.SettingsBloc(gh<_i203.SharedPreferencesManager>()));
     gh.lazySingleton<_i361.Dio>(
         () => registerModules.dio(gh<String>(instanceName: 'BaseUrl')));
     gh.lazySingleton<_i758.DioClient>(() => _i758.DioClient(

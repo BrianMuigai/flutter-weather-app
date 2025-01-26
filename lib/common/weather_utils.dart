@@ -1,5 +1,3 @@
-import 'package:weather_app/features/forecast/data/models/forecast_item.dart';
-
 String getDayOfWeek(int timeStamp) {
   final DateTime dt =
       DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000, isUtc: true)

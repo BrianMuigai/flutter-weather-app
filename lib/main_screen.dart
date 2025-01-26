@@ -5,6 +5,7 @@ import 'package:weather_app/common/app_routes/app_router.gr.dart';
 import 'package:weather_app/common/l10n/app_localization.dart';
 import 'package:weather_app/core/di/injector.dart';
 import 'package:weather_app/features/forecast/presentation/bloc/forecast_bloc.dart';
+import 'package:weather_app/features/settings/presentation/bloc/settings_bloc.dart';
 
 @RoutePage()
 class MainScreen extends StatelessWidget {
@@ -15,6 +16,7 @@ class MainScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => getIt<ForecastBloc>()),
+        BlocProvider(create: (context) => getIt<SettingsBloc>())
       ],
       child: AutoTabsScaffold(
           lazyLoad: false,
