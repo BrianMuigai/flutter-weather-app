@@ -18,7 +18,7 @@ class MinCurrentMax extends StatelessWidget {
     return Material(
       elevation: 4,
       borderRadius: BorderRadius.circular(24),
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           mainAxisAlignment:

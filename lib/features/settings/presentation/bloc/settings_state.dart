@@ -31,3 +31,5 @@ class ChangeUnitOfMeasurementError extends SettingsState {
 
   const ChangeUnitOfMeasurementError({required this.error});
 }
+
+class ChangeUOMLoading extends SettingsState {}
