@@ -14,7 +14,7 @@ ForecastItem _$ForecastItemFromJson(Map<String, dynamic> json) => ForecastItem(
           .map((e) => Weather.fromJson(e as Map<String, dynamic>))
           .toList(),
       wind: Wind.fromJson(json['wind'] as Map<String, dynamic>),
-      visibility: (json['visibility'] as num).toInt(),
+      visibility: (json['visibility'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$ForecastItemToJson(ForecastItem instance) =>

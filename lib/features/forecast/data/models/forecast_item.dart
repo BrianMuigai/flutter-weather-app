@@ -13,7 +13,7 @@ class ForecastItem {
   final Main main;
   final List<Weather> weather;
   final Wind wind;
-  final int visibility;
+  final int? visibility;
 
   ForecastItem(
       {required this.dt,

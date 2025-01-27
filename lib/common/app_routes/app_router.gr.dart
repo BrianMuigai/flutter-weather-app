@@ -1,4 +1,3 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -20,7 +19,10 @@ import 'package:weather_app/main_screen.dart' as _i2;
 /// [_i1.ForecastPage]
 class ForecastRoute extends _i4.PageRouteInfo<void> {
   const ForecastRoute({List<_i4.PageRouteInfo>? children})
-    : super(ForecastRoute.name, initialChildren: children);
+      : super(
+          ForecastRoute.name,
+          initialChildren: children,
+        );
 
   static const String name = 'ForecastRoute';
 
@@ -36,7 +38,10 @@ class ForecastRoute extends _i4.PageRouteInfo<void> {
 /// [_i2.MainScreen]
 class MainRoute extends _i4.PageRouteInfo<void> {
   const MainRoute({List<_i4.PageRouteInfo>? children})
-    : super(MainRoute.name, initialChildren: children);
+      : super(
+          MainRoute.name,
+          initialChildren: children,
+        );
 
   static const String name = 'MainRoute';
 
@@ -52,7 +57,10 @@ class MainRoute extends _i4.PageRouteInfo<void> {
 /// [_i3.SettingsPage]
 class SettingsRoute extends _i4.PageRouteInfo<void> {
   const SettingsRoute({List<_i4.PageRouteInfo>? children})
-    : super(SettingsRoute.name, initialChildren: children);
+      : super(
+          SettingsRoute.name,
+          initialChildren: children,
+        );
 
   static const String name = 'SettingsRoute';
 

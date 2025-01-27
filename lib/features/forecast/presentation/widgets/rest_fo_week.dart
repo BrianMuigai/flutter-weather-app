@@ -18,6 +18,7 @@ class _RestOfWeekState extends State<RestOfWeek> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return BlocListener<ForecastBloc, ForecastState>(
       listener: (context, state) {
         if (state is ForecastLoaded) {
@@ -39,8 +40,11 @@ class _RestOfWeekState extends State<RestOfWeek> {
             child: Text(AppLocalizations.getString(context, "noData")),
           );
         }
-        return ListView.builder(
+        return ListView.separated(
           itemCount: days.length,
+          separatorBuilder: (context, index) => Divider(
+            color: isDarkTheme ? Colors.grey.shade700 : Colors.grey.shade300,
+          ),
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -50,7 +54,8 @@ class _RestOfWeekState extends State<RestOfWeek> {
                   Expanded(
                     flex: 1,
                     child: Text(
-                      days[index].dayOfWeek,
+                      AppLocalizations.getString(
+                          context, days[index].dayOfWeek.toLowerCase()),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ),

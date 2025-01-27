@@ -10,9 +10,12 @@ import 'package:weather_app/common/app_routes/app_router.dart';
 import 'package:weather_app/common/global_bloc_observer.dart';
 import 'package:weather_app/common/l10n/locale_provider.dart';
 import 'package:weather_app/core/di/injector.dart';
+import 'package:weather_app/core/storage/hive_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await HiveStorage.init();
+
   if (kReleaseMode) {
     await dotenv.load(fileName: "env/.env");
   } else {

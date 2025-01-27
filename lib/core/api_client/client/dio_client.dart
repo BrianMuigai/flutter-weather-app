@@ -15,9 +15,10 @@ class DioClient {
   DioClient(this.dio, this._preferencesManager, @Named('ApiKey') this._apiKey) {
     dio.interceptors.add(DioLogInterceptors(printBody: kDebugMode));
     dio.interceptors.add(QueryInterceptor(
-        _apiKey,
-        _preferencesManager.getString(SharedPreferencesManager.language) ??
-            'en'));
+      _apiKey,
+      _preferencesManager.getString(SharedPreferencesManager.language) ?? 'en',
+      _preferencesManager.getString(SharedPreferencesManager.uom) ?? 'standard',
+    ));
   }
 
   DioClient getInstance() => this;

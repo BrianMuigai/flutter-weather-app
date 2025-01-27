@@ -19,5 +19,12 @@
   "uom": "Unités de mesure",
   "standard": "Standard",
   "metric": "Métrique",
-  "imperial": "Impérial"
+  "imperial": "Impérial",
+  "monday": "Lundi",
+  "tuesday": "Mardi",
+  "wednesday": "Mercredi",
+  "thursday": "Jeudi",
+  "friday": "Vendredi",
+  "saturday": "Samedi",
+  "sunday": "Dimanche"
 }

@@ -23,7 +23,7 @@ class _HeaderState extends State<Header> {
   void _fetch(BuildContext context, String value) {
     String city = value;
     if (city.isEmpty) city = 'nairobi';
-    context.read<ForecastBloc>().add(FetchCurrentWeather(city: value));
+    context.read<ForecastBloc>().add(FetchCurrentWeather(city: city));
     context.read<ForecastBloc>().add(FetchWeather(city: city));
   }
 
@@ -41,28 +41,45 @@ class _HeaderState extends State<Header> {
           BlocBuilder<ForecastBloc, ForecastState>(builder: (context, state) {
         return Column(
           children: [
-            Material(
-              elevation: 4,
-              borderRadius: BorderRadius.circular(24),
-              child: TextField(
-                controller: widget.controller,
-                decoration: InputDecoration(
-                  hintText: AppLocalizations.getString(context, 'city'),
-                  prefixIcon: const Icon(Icons.search),
-                  filled: true,
-                  border: OutlineInputBorder(
+            Row(
+              children: [
+                Expanded(
+                  child: Material(
+                    elevation: 4,
                     borderRadius: BorderRadius.circular(24),
-                    borderSide: BorderSide.none, // No border
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 16.0,
-                    horizontal: 16.0,
+                    child: TextField(
+                      controller: widget.controller,
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.getString(context, 'city'),
+                        prefixIcon: const Icon(Icons.search),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(24),
+                          borderSide: BorderSide.none, // No border
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 16.0,
+                        ),
+                      ),
+                      onChanged: (value) {
+                        debouncer.run(() => _fetch(context, value));
+                      },
+                    ),
                   ),
                 ),
-                onChanged: (value) {
-                  debouncer.run(() => _fetch(context, value));
-                },
-              ),
+                Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Material(
+                    elevation: 4,
+                    borderRadius: BorderRadius.circular(24),
+                    child: IconButton(
+                        onPressed: () =>
+                            _fetch(context, widget.controller.text),
+                        icon: Icon(Icons.refresh)),
+                  ),
+                )
+              ],
             ),
             if (state is CurrentWeatherError) ...[
               const Spacer(),
