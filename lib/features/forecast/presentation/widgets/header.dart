@@ -19,6 +19,7 @@ class Header extends StatefulWidget {
 class _HeaderState extends State<Header> {
   final Debouncer debouncer = Debouncer(milliseconds: 500);
   CurrentWeather? currentWeather;
+  String? lastUpdated;
 
   void _fetch(BuildContext context, String value) {
     String city = value;
@@ -34,6 +35,7 @@ class _HeaderState extends State<Header> {
         if (state is CurrentWeatherLoaded) {
           setState(() {
             currentWeather = state.weather;
+            lastUpdated = state.lastUpdated;
           });
         }
       },
@@ -98,6 +100,18 @@ class _HeaderState extends State<Header> {
                 height: MediaQuery.of(context).size.height * 1 / 3,
                 child: Stack(
                   children: [
+                    if (lastUpdated != null)
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        child: Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Text(
+                              '${AppLocalizations.getString(context, "last_updated")} $lastUpdated',
+                              textAlign: TextAlign.center,
+                            )),
+                      ),
                     Image(
                       image: AssetImage(
                         getIcon(currentWeather!.weather.first.main, true),

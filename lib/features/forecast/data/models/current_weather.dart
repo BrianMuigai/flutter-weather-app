@@ -3,7 +3,6 @@ import 'package:weather_app/features/forecast/data/models/coordinates.dart';
 import 'package:weather_app/features/forecast/data/models/main.dart';
 import 'package:weather_app/features/forecast/data/models/weather.dart';
 import 'package:weather_app/features/forecast/data/models/wind.dart';
-import 'package:weather_app/features/forecast/domain/entities/current_weather_table.dart'; // Ensure this is imported
 
 part 'current_weather.g.dart';
 
@@ -37,20 +36,4 @@ class CurrentWeather {
       _$CurrentWeatherFromJson(json);
 
   Map<String, dynamic> toJson() => _$CurrentWeatherToJson(this);
-
-  // New method to create CurrentWeather from CurrentWeatherTable
-  factory CurrentWeather.fromTable(CurrentWeatherTable table) {
-    return CurrentWeather(
-      id: table.id,
-      name: table.name,
-      cod: table.cod,
-      coord: table.coord,
-      weather: table.weather,
-      base: table.base,
-      main: table.main,
-      visibility: table.visibility,
-      wind: table.wind,
-      dt: table.dt,
-    );
-  }
 }

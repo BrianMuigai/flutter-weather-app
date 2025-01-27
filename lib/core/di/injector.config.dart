@@ -13,6 +13,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
+import '../../features/forecast/data/datasources/forecast_local_datasource.dart'
+    as _i102;
 import '../../features/forecast/data/datasources/forecast_remote_datasource.dart'
     as _i936;
 import '../../features/forecast/data/repositories/forecast_repository_impl.dart'
@@ -66,6 +68,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i203.SharedPreferencesManager>(
         () => _i203.SharedPreferencesManager(gh<_i460.SharedPreferences>()));
+    gh.lazySingleton<_i102.ForecastLocalDataSource>(() =>
+        _i102.ForecastLocalDataSource(gh<_i203.SharedPreferencesManager>()));
     gh.lazySingleton<_i283.SettingsDatasource>(
         () => _i283.SettingsDatasource(gh<_i203.SharedPreferencesManager>()));
     gh.lazySingleton<_i361.Dio>(
@@ -90,8 +94,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i953.ChangeLanguageUsecase>(),
           gh<_i68.ChangeUomUsecase>(),
         ));
-    gh.lazySingleton<_i1011.ForecastRepository>(() =>
-        _i1067.ForecastRepositoryImpl(gh<_i936.ForecastRemoteDatasource>()));
+    gh.lazySingleton<_i1011.ForecastRepository>(
+        () => _i1067.ForecastRepositoryImpl(
+              gh<_i936.ForecastRemoteDatasource>(),
+              gh<_i102.ForecastLocalDataSource>(),
+            ));
     gh.lazySingleton<_i456.GetForecastUsecase>(
         () => _i456.GetForecastUsecase(gh<_i1011.ForecastRepository>()));
     gh.lazySingleton<_i11.GetCurrentWeatherUsecase>(
@@ -99,6 +106,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i932.ForecastBloc>(() => _i932.ForecastBloc(
           gh<_i456.GetForecastUsecase>(),
           gh<_i11.GetCurrentWeatherUsecase>(),
+          gh<_i203.SharedPreferencesManager>(),
         ));
     return this;
   }

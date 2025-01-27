@@ -1,28 +1,43 @@
-import 'package:hive/hive.dart';
-import 'package:weather_app/features/forecast/domain/entities/forecast_table.dart';
-import 'package:weather_app/features/forecast/domain/entities/current_weather_table.dart';
+import 'dart:convert';
 
+import 'package:injectable/injectable.dart';
+import 'package:weather_app/core/storage/shared_preferences_manager.dart';
+import 'package:weather_app/features/forecast/data/models/current_weather.dart';
+import 'package:weather_app/features/forecast/data/models/forecast.dart';
+
+@lazySingleton
 class ForecastLocalDataSource {
-  final Box<ForecastTable> _forecastBox =
-      Hive.box<ForecastTable>('forecastBox');
-  final Box<CurrentWeatherTable> _currentWeatherBox =
-      Hive.box<CurrentWeatherTable>('currentWeatherBox');
+  final SharedPreferencesManager _preferencesManager;
 
-  Future<void> storeForecast(ForecastTable forecast) async {
-    // Update the forecast if it already exists
-    await _forecastBox.put(forecast.cod, forecast);
+  ForecastLocalDataSource(this._preferencesManager);
+
+  Future<void> storeForecast(Forecast forecast) async {
+    await _preferencesManager.putString(
+        SharedPreferencesManager.forecast, jsonEncode(forecast.toJson()));
   }
 
-  Future<ForecastTable?> retrieveForecast() async {
-    return _forecastBox.get('forecast');
+  Future<Forecast?> retrieveForecast() async {
+    final forecastJsonString =
+        _preferencesManager.getString(SharedPreferencesManager.forecast);
+    if (forecastJsonString == null) return null;
+
+    return Forecast.fromJson(jsonDecode(forecastJsonString));
   }
 
-  Future<void> storeCurrentWeather(CurrentWeatherTable currentWeather) async {
-    // Update the current weather if it already exists
-    await _currentWeatherBox.put(currentWeather.id, currentWeather);
+  Future<void> storeCurrentWeather(CurrentWeather currentWeather) async {
+    await _preferencesManager.putString(SharedPreferencesManager.currentWeather,
+        jsonEncode(currentWeather.toJson()));
   }
 
-  Future<CurrentWeatherTable?> retrieveCurrentWeather() async {
-    return _currentWeatherBox.get('currentWeather');
+  Future<CurrentWeather?> retrieveCurrentWeather() async {
+    final currentJsonString =
+        _preferencesManager.getString(SharedPreferencesManager.currentWeather);
+    if (currentJsonString == null) return null;
+    return CurrentWeather.fromJson(jsonDecode(currentJsonString));
+  }
+
+  Future<void> storeLastUpdated() async {
+    await _preferencesManager.putInt(SharedPreferencesManager.lastUpdated,
+        DateTime.now().millisecondsSinceEpoch);
   }
 }

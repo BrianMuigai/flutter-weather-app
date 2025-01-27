@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:weather_app/common/weather_utils.dart';
+import 'package:weather_app/core/storage/shared_preferences_manager.dart';
 import 'package:weather_app/features/forecast/data/models/current_weather.dart';
 import 'package:weather_app/features/forecast/data/models/forecast.dart';
 import 'package:weather_app/features/forecast/data/models/forecast_item.dart';
@@ -17,8 +18,10 @@ part 'forecast_state.dart';
 class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
   final GetForecastUsecase _getForecastUsecase;
   final GetCurrentWeatherUsecase _getCurrentWeatherUsecase;
+  final SharedPreferencesManager _preferencesManager;
 
-  ForecastBloc(this._getForecastUsecase, this._getCurrentWeatherUsecase)
+  ForecastBloc(this._getForecastUsecase, this._getCurrentWeatherUsecase,
+      this._preferencesManager)
       : super(ForecastInitial()) {
     on<FetchWeather>(_fetchWeather);
     on<FetchCurrentWeather>(_fetchCurrentWeather);
@@ -43,7 +46,15 @@ class ForecastBloc extends Bloc<ForecastEvent, ForecastState> {
     final response = await _getCurrentWeatherUsecase.call(event.city);
     emit(response.fold(
       (error) => CurrentWeatherError(error: error.toString()),
-      (current) => CurrentWeatherLoaded(weather: current),
+      (current) {
+        int? milliseconds =
+            _preferencesManager.getInt(SharedPreferencesManager.lastUpdated);
+        String? lastUpdated;
+        if (milliseconds != null) {
+          lastUpdated = timeAgo(milliseconds);
+        }
+        return CurrentWeatherLoaded(weather: current, lastUpdated: lastUpdated);
+      },
     ));
   }
 

@@ -21,20 +21,10 @@ The application follows a clean architecture pattern, separating concerns into d
 ## Solutions Implemented
 - Implemented a `ForecastLocalDataSource` to manage local data storage and retrieval, allowing the app to function offline.
 - Added connectivity checks before making remote API calls, falling back to local data if the internet is unavailable.
-- Utilized Hive for efficient local storage, ensuring quick access to weather data.
 - Included the ability to switch between metric and imperial units for temperature and distance.
 - Implemented language localization to support multiple languages, enhancing accessibility for users.
 - Configured the application to support different environments (staging and production) to facilitate testing and deployment.
 
-## Getting Started
-To generate json-serialized files, run:
-```bash
-dart run build_runner build
-```
-or watch for changes and build on save by:
-```bash
-dart run build_runner watch --delete-conflicting-outputs
-```
 
 ## Setup and Run the Project
 1. Clone the repository:
@@ -52,3 +42,14 @@ dart run build_runner watch --delete-conflicting-outputs
 4. Run the application:
    ```bash
    flutter run
+To generate json-serialized files, run:
+
+```bash
+dart run build_runner build
+```
+
+or watch for changes and build on save by:
+
+```bash
+dart run build_runner watch --delete-conflicting-outputs
+```

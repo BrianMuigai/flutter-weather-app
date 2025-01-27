@@ -7,8 +7,6 @@ import 'package:weather_app/features/forecast/data/datasources/forecast_remote_d
 import 'package:weather_app/features/forecast/data/datasources/forecast_local_datasource.dart';
 import 'package:weather_app/features/forecast/data/models/current_weather.dart';
 import 'package:weather_app/features/forecast/data/models/forecast.dart';
-import 'package:weather_app/features/forecast/domain/entities/current_weather_table.dart';
-import 'package:weather_app/features/forecast/domain/entities/forecast_table.dart';
 import 'package:weather_app/features/forecast/domain/repositories/forecast_repository.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -21,7 +19,7 @@ class ForecastRepositoryImpl implements ForecastRepository {
 
   Future<bool> _checkConnectivity() async {
     final connectivityResult = await (Connectivity().checkConnectivity());
-    return connectivityResult != ConnectivityResult.none;
+    return !connectivityResult.contains(ConnectivityResult.none);
   }
 
   @override
@@ -30,8 +28,7 @@ class ForecastRepositoryImpl implements ForecastRepository {
       // Fetch data from local data source if no internet connection
       final localResult = await _localDatasource.retrieveForecast();
       if (localResult != null) {
-        return Right(
-            Forecast.fromTable(localResult)); // Use fromTable to convert
+        return Right(localResult);
       } else {
         return Left(CacheFailure());
       }
@@ -43,7 +40,7 @@ class ForecastRepositoryImpl implements ForecastRepository {
       }
       final Forecast forecast = Forecast.fromJson(result);
       // Update local storage with the fetched data
-      await _localDatasource.storeForecast(ForecastTable.fromModel(forecast));
+      await _localDatasource.storeForecast(forecast);
       return Right(forecast);
     } on ServerException {
       return const Left(ServerFailure());
@@ -56,8 +53,7 @@ class ForecastRepositoryImpl implements ForecastRepository {
       // Fetch data from local data source if no internet connection
       final localResult = await _localDatasource.retrieveCurrentWeather();
       if (localResult != null) {
-        return Right(
-            CurrentWeather.fromTable(localResult)); // Use fromTable to convert
+        return Right(localResult);
       } else {
         return Left(CacheFailure());
       }
@@ -69,8 +65,8 @@ class ForecastRepositoryImpl implements ForecastRepository {
       }
       final currentWeather = CurrentWeather.fromJson(result);
       // Update local storage with the fetched data
-      await _localDatasource
-          .storeCurrentWeather(CurrentWeatherTable.fromModel(currentWeather));
+      await _localDatasource.storeCurrentWeather(currentWeather);
+      await _localDatasource.storeLastUpdated();
       return Right(currentWeather);
     } on ServerException {
       return const Left(ServerFailure());

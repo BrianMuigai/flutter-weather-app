@@ -7,6 +7,9 @@ class SharedPreferencesManager {
 
   static String language = 'language';
   static String uom = "units of measurement";
+  static String lastUpdated = "last updated";
+  static String currentWeather = "currentWeather";
+  static String forecast = "forecast";
 
   SharedPreferencesManager(this._sharedPreferences);
 

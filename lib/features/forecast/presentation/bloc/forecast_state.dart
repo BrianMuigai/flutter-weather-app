@@ -32,6 +32,8 @@ class CurrentWeatherError extends ForecastState {
 
 class CurrentWeatherLoaded extends ForecastState {
   final CurrentWeather weather;
+  final String? lastUpdated;
 
-  const CurrentWeatherLoaded({required this.weather});
+  const CurrentWeatherLoaded(
+      {required this.weather, required this.lastUpdated});
 }
